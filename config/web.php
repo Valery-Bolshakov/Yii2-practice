@@ -13,7 +13,7 @@ $config = [
     'language' => 'ru',
     // меняем название сайта
     'name' => 'Yii2-practice',
-    // меняем главный шаблон с main на grocery
+    // меняем главный шаблон с main на grocery(это можно сделать в AppController)
     'layout' => 'grocery',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -23,7 +23,8 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'sHYa0Jpw5O6PEr3rQfLKE5vAqXfqSiOV',
-            //'baseUrl' => '', // чет не проканала настройка
+//            Устанавливаем базовый url
+            'baseUrl' => '',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
