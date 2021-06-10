@@ -66,8 +66,8 @@ AppAsset::register($this); // подключим необходимый комп
 <div class="logo_products">
     <div class="container">
         <div class="w3ls_logo_products_left">
-<!--            меняем пустую ссылку на домашний адрес-->
-            <h1><a href="<?= yii\helpers\Url::home() ?>>"><span>Grocery</span> Store</a></h1>
+<!--            Посредством helpers\Url и метода home() - меняем пустую ссылку на домашний адрес-->
+            <h1><a href="<?= yii\helpers\Url::home() ?>"><span>Grocery</span> Store</a></h1>
 <!--            <h1><a href="index.html"><span>Grocery</span> Store</a></h1>-->
         </div>
         <div class="w3ls_logo_products_left1">

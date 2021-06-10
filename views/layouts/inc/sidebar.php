@@ -16,7 +16,13 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-            <ul class="nav navbar-nav nav_1">
+<!--            Вызываем виджет который создали ранее-->
+            <?= \app\components\MenuWidget::widget([
+//                    Пишем массив настроек виджета
+                    'tpl' => 'menu',
+                    'ul_class' => 'nav navbar-nav nav_1',  // css класс берем из html кода ниже
+            ]) ?>
+            <!--<ul class="nav navbar-nav nav_1">
                 <li><a href="products.html">Branded Foods</a></li>
                 <li><a href="household.html">Households</a></li>
                 <li class="dropdown mega-dropdown active">
@@ -58,7 +64,7 @@
                     </div>
                 </li>
                 <li><a href="bread.html">Bread & Bakery</a></li>
-            </ul>
+            </ul>-->
         </div><!-- /.navbar-collapse -->
     </nav>
 </div>
