@@ -68,7 +68,6 @@ AppAsset::register($this); // подключим необходимый комп
         <div class="w3ls_logo_products_left">
 <!--            Посредством helpers\Url и метода home() - меняем пустую ссылку на домашний адрес-->
             <h1><a href="<?= yii\helpers\Url::home() ?>"><span>Grocery</span> Store</a></h1>
-<!--            <h1><a href="index.html"><span>Grocery</span> Store</a></h1>-->
         </div>
         <div class="w3ls_logo_products_left1">
             <ul class="special_items">
@@ -88,12 +87,6 @@ AppAsset::register($this); // подключим необходимый комп
     </div>
 </div>
 <!-- //header -->
-
-<!--Открывающий тег <div class="banner"> переносим в шаблон grocery,
-И после него рендерим sidebar, вставляя перед $content-->
-<!-- banner -->
-<div class="banner">
-    <?= $this->render('//layouts/inc/sidebar') ?>
 
 <!--Вырезаем контентную часть из шаблона и переносим её в главный вид (index).
 Всю неизменную часть оставляем в шаблоне (header и footer)

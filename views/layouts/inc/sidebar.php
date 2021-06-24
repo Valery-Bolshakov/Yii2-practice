@@ -20,8 +20,12 @@
             <?= \app\components\MenuWidget::widget([
 //                    Пишем массив настроек виджета
                     'tpl' => 'menu',
+//                    Сюда можно передавать различные классы для построения различного вида виджетов для меню
                     'ul_class' => 'nav navbar-nav nav_1',  // css класс берем из html кода ниже
             ]) ?>
+
+<!--            По идее html код меню можно уже удалять-->
+
             <!--<ul class="nav navbar-nav nav_1">
                 <li><a href="products.html">Branded Foods</a></li>
                 <li><a href="household.html">Households</a></li>
@@ -65,6 +69,7 @@
                 </li>
                 <li><a href="bread.html">Bread & Bakery</a></li>
             </ul>-->
+
         </div><!-- /.navbar-collapse -->
     </nav>
 </div>

@@ -1,3 +1,8 @@
+<!--Открывающий тег <div class="banner"> переносим в шаблон grocery,
+И после него рендерим sidebar, вставляя перед $content-->
+<!-- banner -->
+<div class="banner">
+    <?= $this->render('//layouts/inc/sidebar') ?>
 
 <!--Так как левая часть контента тоже неизменна (меню продуктов)- создаем отдельный вид layouts/inc/sidebar
 и вынесем её в отдельный вид подключаемый sidebar.
@@ -10,7 +15,8 @@
                         <div class="w3l_banner_nav_right_banner">
                             <h3>Make your <span>food</span> with Spicy.</h3>
                             <div class="more">
-                                <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
+                                <a href="products.html" class="button--saqui button--round-l button--text-thick"
+                                   data-text="Shop now">Shop now</a>
                             </div>
                         </div>
                     </li>
@@ -18,7 +24,8 @@
                         <div class="w3l_banner_nav_right_banner1">
                             <h3>Make your <span>food</span> with Spicy.</h3>
                             <div class="more">
-                                <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
+                                <a href="products.html" class="button--saqui button--round-l button--text-thick"
+                                   data-text="Shop now">Shop now</a>
                             </div>
                         </div>
                     </li>
@@ -26,7 +33,8 @@
                         <div class="w3l_banner_nav_right_banner2">
                             <h3>upto <i>50%</i> off.</h3>
                             <div class="more">
-                                <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
+                                <a href="products.html" class="button--saqui button--round-l button--text-thick"
+                                   data-text="Shop now">Shop now</a>
                             </div>
                         </div>
                     </li>
@@ -72,22 +80,48 @@
 </div>
 
 <!-- top-brands -->
+<!--проверяем наличие товаров в блоке Hot Offers
+в $offers лежат первые 4 товара таблицы product которые мы получили в файле HomeController -->
+<?php if (!empty($offers)): ?>
 <div class="top-brands">
     <div class="container">
         <h3>Hot Offers</h3>
         <div class="agile_top_brands_grids">
+<!--            имеем 4 товара в данном блоке, 3 удалим, 1 оставим для примера
+                проходимся циклом по тем 4ем товарам и подставляем где нужно значения из свойств ("$offer->id")-->
+            <?php foreach ($offers as $offer): ?>
+<!--            внутри цикла надо выводить соотв элементы товаров данного блока-->
             <div class="col-md-3 top_brand_left">
                 <div class="hover14 column">
                     <div class="agile_top_brand_left_grid">
-                        <div class="tag"><img src="images/tag.png" alt=" " class="img-responsive" /></div>
+                        <div class="agile_top_brand_left_grid_pos">
+<!--                            Для формирования изображения воспользуемся helpers\Html и методом img() -->
+                            <?= yii\helpers\Html::img('@web/images/offer.png',
+                                ['alt' => 'offer', 'class' => 'img-responsive']) ?>
+                        </div>
                         <div class="agile_top_brand_left_grid1">
                             <figure>
                                 <div class="snipcart-item block" >
                                     <div class="snipcart-thumb">
-                                        <a href="single.html"><img title=" " alt=" " src="images/1.png" /></a>
-                                        <p>fortune sunflower oil</p>
-                                        <h4>$7.99 <span>$10.00</span></h4>
+<!--                                        Ссылку тоже заменяем на хелпер юрл и картинку товара тоже изменим-->
+                                        <a href="<?= yii\helpers\Url::to(['product/view', 'id' =>$offer->id]) ?>">
+                                            <?= yii\helpers\Html::img("@web/products/{$offer->img}",
+                                                ['alt' => $offer->title]) ?>
+                                        </a>
+                                        <!--Подставляем название продукта взятое из таблицы-->
+                                        <p><?= $offer->title ?></p>
+                                        <!--Подставляем старый и новый ценники из таблицы-->
+                                        <h4>
+                                            $<?= $offer->price ?>
+<!--                                        Приводим old_price к типу(float) т.к. изначально значение
+                                            передавалось как строчное
+                                            если $offer->old_price >= 0 то вернет true-->
+                                            <?php if ((float)$offer->old_price): ?>
+                                                <span>$<?= $offer->old_price ?></span>
+                                            <?php endif; ?>
+                                        </h4>
                                     </div>
+<!--                                    Блок с корзиной изменим позже-->
                                     <div class="snipcart-details top_brand_home_details">
                                         <form action="checkout.html" method="post">
                                             <fieldset>
@@ -112,115 +146,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 top_brand_left">
-                <div class="hover14 column">
-                    <div class="agile_top_brand_left_grid">
-                        <div class="agile_top_brand_left_grid1">
-                            <figure>
-                                <div class="snipcart-item block" >
-                                    <div class="snipcart-thumb">
-                                        <a href="single.html"><img title=" " alt=" " src="images/3.png" /></a>
-                                        <p>basmati rise (5 Kg)</p>
-                                        <h4>$11.99 <span>$15.00</span></h4>
-                                    </div>
-                                    <div class="snipcart-details top_brand_home_details">
-                                        <form action="#" method="post">
-                                            <fieldset>
-                                                <input type="hidden" name="cmd" value="_cart" />
-                                                <input type="hidden" name="add" value="1" />
-                                                <input type="hidden" name="business" value=" " />
-                                                <input type="hidden" name="item_name" value="basmati rise" />
-                                                <input type="hidden" name="amount" value="11.99" />
-                                                <input type="hidden" name="discount_amount" value="1.00" />
-                                                <input type="hidden" name="currency_code" value="USD" />
-                                                <input type="hidden" name="return" value=" " />
-                                                <input type="hidden" name="cancel_return" value=" " />
-                                                <input type="submit" name="submit" value="Add to cart" class="button" />
-                                            </fieldset>
-                                        </form>
-                                    </div>
-                                </div>
-                            </figure>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 top_brand_left">
-                <div class="hover14 column">
-                    <div class="agile_top_brand_left_grid">
-                        <div class="agile_top_brand_left_grid_pos">
-                            <img src="images/offer.png" alt=" " class="img-responsive" />
-                        </div>
-                        <div class="agile_top_brand_left_grid1">
-                            <figure>
-                                <div class="snipcart-item block">
-                                    <div class="snipcart-thumb">
-                                        <a href="single.html"><img src="images/2.png" alt=" " class="img-responsive" /></a>
-                                        <p>Pepsi soft drink (2 Ltr)</p>
-                                        <h4>$8.00 <span>$10.00</span></h4>
-                                    </div>
-                                    <div class="snipcart-details top_brand_home_details">
-                                        <form action="#" method="post">
-                                            <fieldset>
-                                                <input type="hidden" name="cmd" value="_cart" />
-                                                <input type="hidden" name="add" value="1" />
-                                                <input type="hidden" name="business" value=" " />
-                                                <input type="hidden" name="item_name" value="Pepsi soft drink" />
-                                                <input type="hidden" name="amount" value="8.00" />
-                                                <input type="hidden" name="discount_amount" value="1.00" />
-                                                <input type="hidden" name="currency_code" value="USD" />
-                                                <input type="hidden" name="return" value=" " />
-                                                <input type="hidden" name="cancel_return" value=" " />
-                                                <input type="submit" name="submit" value="Add to cart" class="button" />
-                                            </fieldset>
-                                        </form>
-                                    </div>
-                                </div>
-                            </figure>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 top_brand_left">
-                <div class="hover14 column">
-                    <div class="agile_top_brand_left_grid">
-                        <div class="agile_top_brand_left_grid_pos">
-                            <img src="images/offer.png" alt=" " class="img-responsive" />
-                        </div>
-                        <div class="agile_top_brand_left_grid1">
-                            <figure>
-                                <div class="snipcart-item block">
-                                    <div class="snipcart-thumb">
-                                        <a href="single.html"><img src="images/4.png" alt=" " class="img-responsive" /></a>
-                                        <p>dogs food (4 Kg)</p>
-                                        <h4>$9.00 <span>$11.00</span></h4>
-                                    </div>
-                                    <div class="snipcart-details top_brand_home_details">
-                                        <form action="#" method="post">
-                                            <fieldset>
-                                                <input type="hidden" name="cmd" value="_cart" />
-                                                <input type="hidden" name="add" value="1" />
-                                                <input type="hidden" name="business" value=" " />
-                                                <input type="hidden" name="item_name" value="dogs food" />
-                                                <input type="hidden" name="amount" value="9.00" />
-                                                <input type="hidden" name="discount_amount" value="1.00" />
-                                                <input type="hidden" name="currency_code" value="USD" />
-                                                <input type="hidden" name="return" value=" " />
-                                                <input type="hidden" name="cancel_return" value=" " />
-                                                <input type="submit" name="submit" value="Add to cart" class="button" />
-                                            </fieldset>
-                                        </form>
-                                    </div>
-                                </div>
-                            </figure>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php endforeach; ?>
+
             <div class="clearfix"> </div>
         </div>
     </div>
 </div>
+<?php endif; ?>
 <!-- //top-brands -->
 
 <!-- fresh-vegetables -->
@@ -256,7 +188,8 @@
                             <img src="images/7.jpg" alt=" " class="img-responsive" />
                             <div class="w3l_fresh_vegetables_grid1_rel_pos">
                                 <div class="more m1">
-                                    <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
+                                    <a href="products.html" class="button--saqui button--round-l button--text-thick"
+                                       data-text="Shop now">Shop now</a>
                                 </div>
                             </div>
                         </div>
