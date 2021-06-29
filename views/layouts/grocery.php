@@ -4,15 +4,17 @@ use app\assets\AppAsset;
 use yii\helpers\Html;
 
 
-AppAsset::register($this); // подключим необходимый комплект ресурсов
+AppAsset::register($this); // подключим необходимый комплект ресурсов AppAsset
 
 ?>
 
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
+<!--Достаем из контейнера Yii::$app язык икодировку и выводим их-->
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
+<!--    Защита от Csrf атак-->
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -91,7 +93,7 @@ AppAsset::register($this); // подключим необходимый комп
 <!--Вырезаем контентную часть из шаблона и переносим её в главный вид (index).
 Всю неизменную часть оставляем в шаблоне (header и footer)
 Пишем переменную $content которая и будет подключать в данное место главный вид (index).-->
-    <?= $content ?>
+<?= $content ?>
 
 <!-- newsletter -->
 <div class="newsletter">

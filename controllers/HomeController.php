@@ -8,6 +8,8 @@ use app\models\Product;
 
 class HomeController extends AppController
 {
+//    Создали контроллер который будет работать с главной страницей приложения
+
     public function actionIndex()
     {
 //        получаем первые 4 товары которые лежат в таблице product, для их дальнейшего использования

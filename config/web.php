@@ -7,13 +7,14 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    // Переназначаем деволтный маршрут на home/index
+//    Переназначаем деволтный маршрут на home/index
+//    хелпер yii\helpers\Url:: и метод home() будут ссылаться на данный маршрут
     'defaultRoute' => 'home/index',
     // меняем язык
     'language' => 'ru',
     // меняем название сайта
     'name' => 'Yii2-practice',
-    // меняем главный шаблон с main на grocery(это можно сделать в AppController)
+    // меняем главный шаблон с layouts/main на layouts/grocery(это можно сделать в AppController)
     'layout' => 'grocery',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -23,7 +24,7 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'sHYa0Jpw5O6PEr3rQfLKE5vAqXfqSiOV',
-//            Устанавливаем базовый url
+//            Устанавливаем базовый url (избавляет от web в адресе при обращении к корню приложения)
             'baseUrl' => '',
         ],
 //        Опция в которую передаются настройки кеширования
