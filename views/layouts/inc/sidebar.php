@@ -16,6 +16,7 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+
 <!--            Вызываем виджет который создали ранее-->
             <?= \app\components\MenuWidget::widget([
                     /*Пишем массив настроек виджета

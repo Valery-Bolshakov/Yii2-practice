@@ -8,6 +8,7 @@
 <!--Так как левая часть контента тоже неизменна (меню продуктов)- создаем отдельный вид layouts/inc/sidebar
 и вынесем её в отдельный вид подключаемый sidebar.
 Открывающий тег <div class="banner"> переносим в шаблон grocery, вставляя перед $content-->
+
     <div class="w3l_banner_nav_right">
         <section class="slider">
             <div class="flexslider">

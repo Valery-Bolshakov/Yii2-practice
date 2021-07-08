@@ -19,7 +19,7 @@ class HomeController extends AppController
 //        Переходим в файл home/index и работаем с блоком Hot Offers
 
 //        Далее передаем полученые товары в вид: compact('offers')
-        return$this->render('index', compact('offers'));
+        return $this->render('index', compact('offers'));
     }
 
 }
