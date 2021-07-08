@@ -1,9 +1,6 @@
 <?php
-
 use app\assets\AppAsset;
 use yii\helpers\Html;
-
-
 AppAsset::register($this); // подключим необходимый комплект ресурсов AppAsset
 
 ?>

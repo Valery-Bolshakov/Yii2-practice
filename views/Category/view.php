@@ -1,6 +1,6 @@
 <?php
 $id = Yii::$app->request->get('id'); // $id = гет парамтру id из таблицы category, который передается ссылкой
-echo $id;
+//echo $id;
 $category_arr = [
     1 => 'products',
     2 => 'household',
@@ -16,4 +16,5 @@ $category_arr = [
     15 => 'bread',
 ];
 echo $this->render("$category_arr[$id]");
+
 ?>
