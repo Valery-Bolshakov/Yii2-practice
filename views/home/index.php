@@ -89,15 +89,17 @@
     <div class="container">
         <h3>Hot Offers</h3>
         <div class="agile_top_brands_grids">
-<!--            имеем 4 товара в данном блоке, 3 удалим, 1 оставим для примера
-                проходимся циклом по тем 4ем товарам и подставляем где нужно значения из свойств ("$offer->id")-->
+<!--            имеем 4 товара в данном блоке, 3 удалим, 1 оставим для примера.
+                проходимся циклом по тем 4ем товарам которые лежат в переменной $offers и подставляем
+                где нужно значения из свойств ("$offer->id")-->
             <?php foreach ($offers as $offer): ?>
 <!--            внутри цикла надо выводить соотв элементы товаров данного блока-->
             <div class="col-md-3 top_brand_left">
                 <div class="hover14 column">
                     <div class="agile_top_brand_left_grid">
                         <div class="agile_top_brand_left_grid_pos">
-<!--                            Для формирования изображения воспользуемся helpers\Html и методом img() -->
+<!--                            Для формирования изображения воспользуемся helpers\Html и методом img()
+ параметр 'class' => 'img-responsive' взяли из удаленного позднее html кода, для правильного отображения картинки-->
                             <?= yii\helpers\Html::img('@web/images/offer.png',
                                 ['alt' => 'offer', 'class' => 'img-responsive']) ?>
                         </div>
@@ -105,19 +107,23 @@
                             <figure>
                                 <div class="snipcart-item block" >
                                     <div class="snipcart-thumb">
-<!--                                        Ссылку тоже заменяем на хелпер юрл и картинку товара тоже изменим-->
+<!--                                        Ссылку тоже заменяем на хелпер юрл и картинку товара тоже изменим
+Указываем маршрут до будущего контроллера Product и вида view, id нужного товара хранится в $offer и
+его свовстве id ($offer->id)
+Далее меняем картинку товара, указываем путь на папку product в корневой дирректории web (@web/products/).
+А название картинки берем из свойства $offer по ключу img из таблицы product -->
                                         <a href="<?= yii\helpers\Url::to(['product/view', 'id' =>$offer->id]) ?>">
                                             <?= yii\helpers\Html::img("@web/products/{$offer->img}",
                                                 ['alt' => $offer->title]) ?>
                                         </a>
-                                        <!--Подставляем название продукта взятое из таблицы-->
+<!-- Название в картинки берем из свойства $offer->title которое обратится к нужному разделу $offer поля title -->
                                         <p><?= $offer->title ?></p>
                                         <!--Подставляем старый и новый ценники из таблицы-->
                                         <h4>
                                             $<?= $offer->price ?>
 <!--                                        Приводим old_price к типу(float) т.к. изначально значение
                                             передавалось как строчное
-                                            если $offer->old_price >= 0 то вернет true-->
+                                            если $offer->old_price >= 0 то вернет true и условие отработает-->
                                             <?php if ((float)$offer->old_price): ?>
                                                 <span>$<?= $offer->old_price ?></span>
                                             <?php endif; ?>

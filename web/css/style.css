@@ -1711,6 +1711,17 @@ h2.typoh2{
 		margin-bottom: 0em;
 	}
 }
+
+/*Напишем Общие css свойства для всех изображений (Делаем их адаптивными)*/
+img{
+	max-width: 100%;
+	height: auto;
+}
+
+.snipcart-thumb img{
+	max-height: 140px;
+}
+
 @media (max-width:640px){
 	h1, .h1, h2, .h2, h3, .h3 {
 		margin-top: 0px;

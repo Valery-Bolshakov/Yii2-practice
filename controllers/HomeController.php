@@ -12,8 +12,9 @@ class HomeController extends AppController
 
     public function actionIndex()
     {
-//        получаем первые 4 товары которые лежат в таблице product, для их дальнейшего использования
-        $offers = Product::find()->where(['is_offer' =>1])->limit(4)->all();
+//        Обращаемся к модели Product и получаем в $offers первые 4 товарa(->limit(4)) которые лежат в таблице
+//        product, для их дальнейшего использования
+        $offers = Product::find()->where(['is_offer' => 1])->limit(4)->all();
 //        посмотрим получили ли указанные товары:
 //        debug($offers);
 //        Переходим в файл home/index и работаем с блоком Hot Offers

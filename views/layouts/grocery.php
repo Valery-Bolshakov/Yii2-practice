@@ -7,6 +7,10 @@ AppAsset::register($this); // подключим необходимый комп
 
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
+<!--В Главном Шаблоне приложения в хедере прописать тег <base href="/"> - тег "базовый путь"
+Данный "/" будет добавляться ко всем путям и ссылки на картинки будут отрабатывать правильно.-->
+<base href="/">
+
 <!--Достаем из контейнера Yii::$app язык икодировку и выводим их-->
 <html lang="<?= Yii::$app->language ?>">
 <head>
@@ -24,14 +28,19 @@ AppAsset::register($this); // подключим необходимый комп
 <!-- header -->
 <div class="agileits_header">
     <div class="w3l_offers">
-        <a href="products.html">Today's special Offers !</a>
+        <a href="#">Today's special Offers !</a>
     </div>
+
+<!--    НАСТРАИВАЕМ ПОИСК-->
     <div class="w3l_search">
-        <form action="#" method="post">
-            <input type="text" name="Product" value="Search a product..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search a product...';}" required="">
+        <form action="<?= \yii\helpers\Url::to(['category/search']) ?>" method="get">
+            <input type="text" name="q" value="Search a product..." onfocus="this.value = '';"
+                   onblur="if (this.value == '') {this.value = 'Search a product...';}" required="">
             <input type="submit" value=" ">
+<!--            Далее переходим в настройки web и настраиваем красивый адрес запросов поиска-->
         </form>
     </div>
+
     <div class="product_list_header">
         <form action="#" method="post" class="last">
             <fieldset>
