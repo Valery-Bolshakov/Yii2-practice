@@ -1,4 +1,4 @@
-
+<!--СТРАНИЦА ВЫВОДА ТОВАРОВ СОГЛАСНО ЗАПРАШИВАЕМОЙ КАТЕГОРИИ-->
 <!-- products-breadcrumb | хлебные крошки -->
 <div class="products-breadcrumb">
     <div class="container">

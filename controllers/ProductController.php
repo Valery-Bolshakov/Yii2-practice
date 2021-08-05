@@ -9,14 +9,15 @@ use yii\web\NotFoundHttpException;
 
 class ProductController extends AppController
 {
-//    Создали экшен для странички карточки товаров
+
+    /** Экшен для странички карточки товаров */
     public function actionView($id)
     {
 //        Параметром данный экшен будет принимать id запрашиваемого товара
 //        Обращаемся к модели Product и получаем продукт, записывая его в переменную $product:
         $product = Product::findOne($id);
 
-//        Если данного продукта нет - выбрасываем исключение:
+//        Если данного продукта нет(обратились по битой ссылке) - выбрасываем исключение:
         if (empty($product)) {
             throw new NotFoundHttpException('Такого продукта нет!');
         }

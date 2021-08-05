@@ -8,9 +8,12 @@
             <!--Что бы в крошки вписать название категории, в которой находится товар, необходимо установить
             связь между моделями Product and Category. Связь устанавливаем в модели Product
             с помощью метода getCategory(). Далее мы можем использовать любые свойства таблицы category
-            посредством конструкции $product->category->... Примеры ниже-->
+            посредством конструкции $product->category->... - которая вызовет метод getCategory().
+
+            Например: $product->category->title получит свойство title из таблицы category
+            согласно полученному в контроллере ProductController id -->
             <li>
-                <a href="<?= \yii\helpers\Url::to(['category/view', 'id'=>$product->category->id]) ?>">
+                <a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $product->category->id]) ?>">
                     <?= $product->category->title ?></a><span>|</span>
 <!--                Напишем Второй вариант формирования ссылок с помощью helpers\Html-->
                 <?/*= \yii\helpers\Html::a($product->category->title,
@@ -32,8 +35,8 @@
         <div class="agileinfo_single">
             <h5><?= $product->title ?></h5><!--Подставляем запрашиваемое название товара-->
             <div class="col-md-4 agileinfo_single_left"><!--Подставляем запрашиваемое Картинку товара-->
-                <?= yii\helpers\Html::img("@web/images/{$product->img}",
-                    ['alt' => 'example', 'class' => 'img-responsive']) ?>
+                <?= yii\helpers\Html::img("@web/products/{$product->img}",
+                    ['alt' => $product->title, 'id' => 'example']) ?>
             </div>
             <div class="col-md-8 agileinfo_single_right">
                 <div class="rating1">
@@ -52,10 +55,7 @@
                 </div>
                 <div class="w3agile_description">
                     <h4>Description :</h4>
-                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                        officia deserunt mollit anim id est laborum.Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                        pariatur.</p>
+                    <p><?= $product->content ?></p>
                 </div>
                 <div class="snipcart-item block">
                     <div class="snipcart-thumb agileinfo_single_right_snipcart">

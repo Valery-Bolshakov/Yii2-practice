@@ -12,6 +12,7 @@ class HomeController extends AppController
 
     public function actionIndex()
     {
+        /** Экшен для Главной странички приложения */
 //        Обращаемся к модели Product и получаем в $offers первые 4 товарa(->limit(4)) которые лежат в таблице
 //        product, для их дальнейшего использования
         $offers = Product::find()->where(['is_offer' => 1])->limit(4)->all();

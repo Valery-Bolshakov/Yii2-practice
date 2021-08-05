@@ -4,6 +4,20 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
+
+/*Напишем Общие css свойства для всех изображений. Делаем их адаптивными: img
+	и зададим макс размер: .snipcart-thumb img)
+	Теперь посредством свойств img у нас картинки отображаются одинакового размера и уменьшеные.
+	А в карточке товара будет отображаться адаптивная картинка, вплоть до полного размера*/
+img{
+	max-width: 100%;
+	height: auto;
+}
+.snipcart-thumb img{
+	max-height: 140px;
+}
+
+
 html, body{
     font-size: 100%;
 	font-family: 'Open Sans', sans-serif;
@@ -1710,16 +1724,6 @@ h2.typoh2{
 	.grid_3 {
 		margin-bottom: 0em;
 	}
-}
-
-/*Напишем Общие css свойства для всех изображений (Делаем их адаптивными)*/
-img{
-	max-width: 100%;
-	height: auto;
-}
-
-.snipcart-thumb img{
-	max-height: 140px;
 }
 
 @media (max-width:640px){

@@ -1,4 +1,4 @@
-<!--СТРАНИЧКА ВИДА ДЛЯ ПОИСКА-->
+<!--СТРАНИЧКА ВИДА ПОИСКА ТОВАРОВ-->
 <!-- products-breadcrumb | хлебные крошки -->
 <div class="products-breadcrumb">
     <div class="container">

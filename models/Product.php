@@ -14,10 +14,11 @@ class Product extends ActiveRecord
         return 'product';
     }
 
-//    Устанавливаем связь между моделями Product и Category
+    /** Устанавливаем связь между моделями Product и Category */
     public function getCategory()
     {
-//        Устанавливаем связсь где 'id' модели Category связываем с 'category_id' модели Product
+        /*Устанавливаем связь параметра 'id' модели Category связываем с параметром 'category_id' модели Product
+        Теперь можно доставать свойства таблицы category: $product->category->title*/
         return $this->hasOne(Category::class, ['id' => 'category_id']);
     }
 
