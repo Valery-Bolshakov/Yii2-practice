@@ -41,15 +41,52 @@ AppAsset::register($this); // подключим необходимый комп
         </form>
     </div>
 
+<!--КОРЗИНА-->
+    <!--идем на сайт бутстрапа, заходим в докум, выбираем версию 3.4.1, переходим в раздел
+            JS и далее в раздел Modal. Отсюда берем код для Модального окна "Live demo"
+
+        Либо можно воспользоваться документацией Yii2, раздел виджеты Bootstrap
+            или в разделе Class yii\bootstrap\Modal использовать встроенный виджет-->
     <div class="product_list_header">
-        <form action="#" method="post" class="last">
-            <fieldset>
-                <input type="hidden" name="cmd" value="_cart" />
-                <input type="hidden" name="display" value="1" />
-                <input type="submit" name="submit" value="View your cart" class="button" />
-            </fieldset>
-        </form>
+        <!-- Взяли код кнопки с документации bootstrap Live demo
+                Меняем настройки под наши задачи (class and data-target)
+        Так же навесим на кнопку событие клика "onclick" по которому будем выполнять функцию getCart() -->
+        <button onclick="getCart()" type="button" class="button" data-toggle="modal" data-target="#modal-cart">
+            <span class="cart-sum" style="color: #ffffff">
+                <!--задаем дефолтное значение корзины которое выдается при заходе на сайт
+                или после перезагрузки страницы: просто обращаемся к сесии и достаем текущее
+                значение, если такового нет "??" то возвращаем "0"-->
+                $<?= $_SESSION['cart.sum'] ?? '0' ?>
+            </span>
+        </button>
+
+        <!-- Вставляем контент модального окна (из Live demo), немного меняем настройки
+            id сделали такой же как data-target="#modal-cart" -->
+        <div class="modal fade" id="modal-cart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Корзина</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!--контент корзины. Сюда вставляются добавленные в корзину товары-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Продолжить покупки</button>
+                        <!--btn-success - сделали кнопку зеленой-->
+                        <a href="<?= \yii\helpers\Url::to(['cart/checkout']) ?>" class="btn btn-success">Оформить заказ</a>
+                        <!--btn-danger - сделали кнопку красной
+                        добавляем функцию очистки корзины onclick="clearCart()" которую описали в main.js -->
+                        <button onclick="clearCart()" type="button" class="btn btn-danger">Очистить корзину</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+<!--КОРЗИНА-->
+
     <div class="w3l_header_right">
         <ul>
             <li class="dropdown profile_details_drop">

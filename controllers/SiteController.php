@@ -71,11 +71,14 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        /*Экшен проверяет Если пользователь уже авторизован -
+        его перенаправляет на главную страницу*/
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
+        /*Если не авторизован - его направляет на данную модель*/
         $model = new LoginForm();
+        /*получаем данные постом и пробуем их загрузить и вызываем метод логин*/
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }

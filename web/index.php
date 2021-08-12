@@ -1,6 +1,7 @@
 <?php
+/*ФРОНТКОНТРОЛЛЕР ВСЕГО ПРИЛОЖЕНИЯ*/
 
-// comment out the following two lines when deployed to production
+// ЗАКОММЕНТИРУЙТЕ следующие две строки при переносе приложения на реальный сервер
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
 

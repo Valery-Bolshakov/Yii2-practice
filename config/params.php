@@ -1,7 +1,10 @@
 <?php
 
 return [
+    /*Данные свойства все доступны через контейнер yii::app по соотв ключам
+    'эти параметры используятся при отправке почты через приложение*/
     'adminEmail' => 'admin@example.com',
-    'senderEmail' => 'noreply@example.com',
-    'senderName' => 'Example.com mailer',
+    'senderEmail' => 'Email@email.com',  // электронная почта отправителя
+//    'senderEmail' => 'noreply@example.com',  // электронная почта отправителя
+    'senderName' => 'Yii2-practice',  // имя отправителя или например название организации/сайта
 ];

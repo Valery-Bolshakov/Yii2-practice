@@ -20,7 +20,27 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    /*Сгенерировали модуль админ с помозщю Gii и вставляем соотв настройку
+    http://yii2-practice/gii - ссылка на модуль Gii в приложении*/
+    'modules' => [
+        'admin' => [
+            'class' => 'app\moduls\admin\Module',
+        ],
+    ],
     'components' => [
+        /*решаем проблемы с конфликтом библиотек при вводе формы:
+        документация yii -> Ресурсы -> Настройка Комплектов Ресурсов*/
+        'assetManager' => [
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'sourcePath' => null,   // не опубликовывать комплект
+                    'js' => [
+                        /* Вставляем сюда нашу библиотеку с которой происходил конфликт*/
+                        'js/jquery-1.11.1.min.js',
+                    ]
+                ],
+            ],
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'sHYa0Jpw5O6PEr3rQfLKE5vAqXfqSiOV',
@@ -31,19 +51,40 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        /*Компонент user управляет статусом аутентификации пользователя.*/
         'user' => [
             'identityClass' => 'app\models\User',
+            /*Настройка нужна что бы юзер автоматически залогинивался если сайт запомнил его*/
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        /*Данный компонет отвечает за настройки возможности отправки почты*/
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
+
+             /*  Данная настройка предназначена для тестирования отправки почты(ТЕСТИРОВАНИЯ!
+             в реале пока настройка в true почта не отправляется. а сохраняется в текстовый
+             файл в runtime/mail).
+                Для отправки почты данную настройку надо переводить в false а так же
+             загуглить настройки по запросу "yii2 swiftmailer smtp".
+                Документацию по отправке почты через почтовые сервисы можно найти по
+             запросу например "gmail smtp"*/
+            'useFileTransport' => false,
+
+            /*Загуглили настройки Yii2 mailer и устанавливаем 'useFileTransport' => false
+            Устанавливаю настройки для сервиса mail.ru   (smtp mail.ru)*/
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',  // оставляем как в настройках
+                'host' => 'smtp.mail.ru',  // Указываем smtp сервис который используем
+                /*Почта и пароль должны совпадать с реальной учеткой почты */
+                'username' => 'Email@email.com',  // Должно соответствовать senderEmail из config/params
+                'password' => 'password',  // пароль от почты
+                /*port и encryption надо смотреть в докум smtp сервиса который используем*/
+                'port' => '465',  // В некоторых сервисах 2525
+                'encryption' => 'ssl',  // либо tls
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -90,7 +131,10 @@ $config = [
     ],
     'params' => $params,
 ];
-
+/*  Настройки для модуля Gii. Данный модуль по умолчанию доступен только в режиме
+разработки и только на локальном хосте. Если хотим работать на реальном - надо установить
+настройку allowedIPs
+    YII_ENV_DEV - данная константа отвечает за доступность режима разработки*/
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
@@ -104,6 +148,8 @@ if (YII_ENV_DEV) {
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
+        /*Данная настройка позволяет получить доступ к модулю Gii при работе на
+        реальном хосте*/
         //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }

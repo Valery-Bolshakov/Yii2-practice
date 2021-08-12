@@ -1,4 +1,6 @@
 <?php
+/* ШАБЛОН ПИСЬМА */
+
 use yii\helpers\Html;
 
 /* @var $this \yii\web\View view component instance */

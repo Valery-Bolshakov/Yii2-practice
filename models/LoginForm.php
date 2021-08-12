@@ -17,7 +17,7 @@ class LoginForm extends Model
     public $password;
     public $rememberMe = true;
 
-    private $_user = false;
+    private $_user = false;  // в данном приватном свойстве будет храниться обьект пользователя
 
 
     /**
@@ -31,7 +31,7 @@ class LoginForm extends Model
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+            ['password', 'validatePassword'],  // кастомный валидатор, описан ниже
         ];
     }
 
@@ -44,10 +44,14 @@ class LoginForm extends Model
      */
     public function validatePassword($attribute, $params)
     {
+        /*Если небыло ошибок при валидации то...*/
         if (!$this->hasErrors()) {
+            /*...то мы получаем обьект пользователя*/
             $user = $this->getUser();
 
+            /*Проверяем, если юзер false и прошла ошибка валидации то...  */
             if (!$user || !$user->validatePassword($this->password)) {
+                /*...выкидываем ошибку*/
                 $this->addError($attribute, 'Incorrect username or password.');
             }
         }
@@ -59,6 +63,8 @@ class LoginForm extends Model
      */
     public function login()
     {
+            /*Метод логин валидирует данные. И если валидация прошлы - вызывается метод
+        Логин(компонента юзер, метод описан в фреймворке) - который аутентифицирует пользователя*/
         if ($this->validate()) {
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
         }
@@ -72,7 +78,9 @@ class LoginForm extends Model
      */
     public function getUser()
     {
+        /*Если приватное свойство пустое ($_user = false) то...*/
         if ($this->_user === false) {
+            /*...ищем пользователя по его юзернейм и возвращает его*/
             $this->_user = User::findByUsername($this->username);
         }
 
