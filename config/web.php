@@ -7,8 +7,9 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-//    Переназначаем деволтный маршрут на home/index
-//    хелпер yii\helpers\Url:: и метод home() будут ссылаться на данный маршрут
+    /*Переназначаем деволтный маршрут на home/index. Теперь для главного шаблона
+    приложения будет установлен контроллер по умолчанию HomeController с видом index
+    хелпер yii\helpers\Url:: и метод home() будут ссылаться на данный маршрут*/
     'defaultRoute' => 'home/index',
     // меняем язык
     'language' => 'ru',
@@ -25,6 +26,12 @@ $config = [
     'modules' => [
         'admin' => [
             'class' => 'app\moduls\admin\Module',
+            /*Устанавливаем главный шаблон для модуля Админ:
+                по умолчанию yii его ищет в папке moduls/admin/views/layouts*/
+            'layout' => 'admin',
+            /*Устанавливаем главный контроллер для админского шаблона: MainController
+                и главный(дефолтный) вид для контроллера: index*/
+            'defaultRoute' => 'main/index',
         ],
     ],
     'components' => [
@@ -56,6 +63,8 @@ $config = [
             'identityClass' => 'app\models\User',
             /*Настройка нужна что бы юзер автоматически залогинивался если сайт запомнил его*/
             'enableAutoLogin' => true,
+            /*задаем маршрут для аутентификации пользователей*/
+            'loginUrl' => '/admin/auth/login',
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

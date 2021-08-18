@@ -11,6 +11,8 @@ use yii\base\Model;
  * @property-read User|null $user This property is read-only.
  *
  */
+/*наследуем стандартный класс для моделей*/
+
 class LoginForm extends Model
 {
     public $username;
@@ -63,10 +65,18 @@ class LoginForm extends Model
      */
     public function login()
     {
-            /*Метод логин валидирует данные. И если валидация прошлы - вызывается метод
+        /*Метод логин валидирует данные. И если валидация прошлы - вызывается метод
         Логин(компонента юзер, метод описан в фреймворке) - который аутентифицирует пользователя*/
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+            /*Проверим пришло ли значение auth_key из метода generateAuthKey модели User*/
+            if ($this->rememberMe) {
+                /*если пришло то в переменную Ю*/
+                $u = $this->getUser();
+                /*сгенерировали случайную строку и сохранили её*/
+                $u->generateAuthKey();
+                $u->save();
+            }
+            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         }
         return false;
     }
@@ -76,11 +86,12 @@ class LoginForm extends Model
      *
      * @return User|null
      */
+    /*метод гетюзер находит юзера*/
     public function getUser()
     {
         /*Если приватное свойство пустое ($_user = false) то...*/
         if ($this->_user === false) {
-            /*...ищем пользователя по его юзернейм и возвращает его*/
+            /*...ищем пользователя по его юзернейм и возвращает его(опираясь на методы в модели User)*/
             $this->_user = User::findByUsername($this->username);
         }
 

@@ -2,38 +2,23 @@
 
 namespace app\models;
 
-class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
+use yii\db\ActiveRecord;
+
+class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
+    /*Модель User наследует класс ActiveRecord для того что бы была возможность работать с БД
+    В данном конкретном случае для связки модели Юзер с таблицей Юзер в БД*/
 
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
+    /*сзявываем данную модель с соотв таблицей бд*/
+    public static function tableName()
+    {
+        return 'user';
+    }
 
-
-    /**
-     * {@inheritdoc}
-     */
+    /*метод который получает данные юзера по его id*/
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return static::findOne($id);
     }
 
     /**
@@ -41,13 +26,7 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        /*данный метод нам не нужен но необходимо его оставить так как модель наследует IdentityInterface*/
     }
 
     /**
@@ -56,20 +35,17 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      * @param string $username
      * @return static|null
      */
+    /*Метод представляет собой поиск пользователя по его Логину*/
     public static function findByUsername($username)
     {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        /*связываем В МАССИВЕ свойство юзернейм и данными таблицы*/
+        return static::findOne(['username' => $username]);
     }
 
     /**
      * {@inheritdoc}
      */
+    /*метод для возврата id пользователя*/
     public function getId()
     {
         return $this->id;
@@ -78,17 +54,19 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     /**
      * {@inheritdoc}
      */
+    /*Устанавливаем auth_key как в таблице*/
     public function getAuthKey()
     {
-        return $this->authKey;
+        return $this->auth_key;
     }
 
     /**
      * {@inheritdoc}
      */
+    /*Устанавливаем auth_key как в таблице*/
     public function validateAuthKey($authKey)
     {
-        return $this->authKey === $authKey;
+        return $this->auth_key === $authKey;
     }
 
     /**
@@ -97,8 +75,37 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      * @param string $password password to validate
      * @return bool if password provided is valid for current user
      */
+    /*Метод сравнивает имеющийся в хеше пароль с введенным паролем от юзера
+    Пароль будет в ХЕШИРОВАНОМ виде для этого используем:
+    $hash = Yii::$app->getSecurity()->generatePasswordHash($password); из документации */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        /*Смотрим на документацию раздел Безопасность - Работа с паролями и делаем как показано:*/
+        return \Yii::$app->getSecurity()->validatePassword($password, $this->password);
+    }
+
+    /*Напишем метод который при авторизации(если все прошло успешно) сгенерирует значение,
+    которое в дальнейшем запишется в таблице юзерс в строке данного пользователя в поле auth_key
+    Это значение нам необходимо на случай восстановления пароля данного юзера*/
+    public function generateAuthKey()
+    {
+        $this->auth_key = \Yii::$app->security->generateRandomString();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
