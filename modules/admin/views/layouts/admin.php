@@ -2,9 +2,11 @@
 <?php
 
 use app\assets\AdminAsset;
+use app\widgets\Alert;
 use yii\helpers\Html;
+use yii\widgets\Breadcrumbs;
 
-AdminAsset::register($this);
+AdminAsset::register($this);  // регистрируем комплект ресурсов для админ панели
 ?>
 
 <?php $this->beginPage() ?>
@@ -58,7 +60,8 @@ desired effect
     <header class="main-header">
 
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <!--Сделаем из лого Ссылку на домашнюю страрницу. target="_blank" - открытие в новом окне. -->
+        <a href="<?= Yii::$app->homeUrl ?>" class="logo" target="_blank">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><b>A</b>LT</span>
             <!-- logo for regular state and mobile devices -->
@@ -90,7 +93,8 @@ desired effect
                                         <a href="#">
                                             <div class="pull-left">
                                                 <!-- User Image -->
-                                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                <img src="dist/img/user2-160x160.jpg" class="img-circle"
+                                                     alt="User Image">
                                             </div>
                                             <!-- Message title and timestamp -->
                                             <h4>
@@ -155,7 +159,8 @@ desired effect
                                             <!-- The progress bar -->
                                             <div class="progress xs">
                                                 <!-- Change the css width attribute to simulate progress -->
-                                                <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
+                                                <div class="progress-bar progress-bar-aqua" style="width: 20%"
+                                                     role="progressbar"
                                                      aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
                                                     <span class="sr-only">20% Complete</span>
                                                 </div>
@@ -211,7 +216,8 @@ desired effect
                                 </div>
                                 <div class="pull-right">
                                     <!--Ссылка на разлогинивание:-->
-                                    <a href="<?= \yii\helpers\Url::to(['auth/logout']) ?>" class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="<?= \yii\helpers\Url::to(['auth/logout']) ?>"
+                                       class="btn btn-default btn-flat">Sign out</a>
                                 </div>
                             </li>
                         </ul>
@@ -224,71 +230,28 @@ desired effect
             </div>
         </nav>
     </header>
-    <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar">
-
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-
-            <!-- Sidebar user panel (optional) -->
-            <div class="user-panel">
-                <div class="pull-left image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                </div>
-                <div class="pull-left info">
-                    <p>Alexander Pierce</p>
-                    <!-- Status -->
-                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                </div>
-            </div>
-
-            <!-- search form (Optional) -->
-            <form action="#" method="get" class="sidebar-form">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Search...">
-                    <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-              </button>
-            </span>
-                </div>
-            </form>
-            <!-- /.search form -->
-
-            <!-- Sidebar Menu -->
-            <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">HEADER</li>
-                <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-                <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-                <li class="treeview">
-                    <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-                        <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="#">Link in level 2</a></li>
-                        <li><a href="#">Link in level 2</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <!-- /.sidebar-menu -->
-        </section>
-        <!-- /.sidebar -->
-    </aside>
+    <!--Вынесем сайдбар в отдельный файл и рендерим его в шаблоне:
+    Если путь указывать с одного '/' то приложение будет искать его в папке "views" что лежит
+    в дирректории модуль/админ (modules/admin)-->
+    <?= $this->render('/layouts/inc/sidebar') ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Page Header
-                <small>Optional description</small>
+                <!--Выводим тайтл панели админа-->
+                <?= $this->title ?>
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                <li class="active">Here</li>
-            </ol>
+            <!--Выводим хлебные крошки админской панели используя стандартный виджет Yii2-->
+            <!--Используем его свойство "homeLink" для того что бы в крошках ссылка "Home page Admin" вела
+            на начальную страницу админской панели а не главную страницу всего магазина-->
+            <?= Breadcrumbs::widget([
+                'homeLink' => ['label' => 'Home page Admin', 'url' => '/admin/'],
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
+            <!--Так же по случаю выводим стандартный виджет Алерт-->
+            <?= Alert::widget() ?>
+
         </section>
 
         <!-- Main content -->
@@ -297,8 +260,10 @@ desired effect
             <!--------------------------
               | Your Page Content Here |
               -------------------------->
+
             <!--Проверяем какие данные пришли из таблицы при авторизации под админкой-->
-            <?php /*debug(Yii::$app->user->identity) */?>
+            <?php /*debug(Yii::$app->user->identity) */ ?>
+            <!--Выводим контент страницы из главного вида шаблона MainController->actionIndex-->
             <?= $content ?>
         </section>
         <!-- /.content -->

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\moduls\admin\controllers;
+namespace app\modules\admin\controllers;
 
 
 use app\models\LoginForm;

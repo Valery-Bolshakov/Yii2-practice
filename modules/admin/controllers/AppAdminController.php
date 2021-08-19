@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\moduls\admin\controllers;
+namespace app\modules\admin\controllers;
 
 
 use yii\filters\AccessControl;
@@ -9,7 +9,7 @@ use yii\web\Controller;
 
 class AppAdminController extends Controller
 {
-    /** Создали общий контроллер, для всез контроллеров Админской части приложения */
+    /** Создали общий контроллер, для всех контроллеров Админской части приложения */
 
     /*Фильтры контроля доступа*/
     public function behaviors()

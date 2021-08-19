@@ -25,9 +25,9 @@ $config = [
     http://yii2-practice/gii - ссылка на модуль Gii в приложении*/
     'modules' => [
         'admin' => [
-            'class' => 'app\moduls\admin\Module',
+            'class' => 'app\modules\admin\Module',
             /*Устанавливаем главный шаблон для модуля Админ:
-                по умолчанию yii его ищет в папке moduls/admin/views/layouts*/
+                по умолчанию yii его ищет в папке modules/admin/views/layouts*/
             'layout' => 'admin',
             /*Устанавливаем главный контроллер для админского шаблона: MainController
                 и главный(дефолтный) вид для контроллера: index*/
