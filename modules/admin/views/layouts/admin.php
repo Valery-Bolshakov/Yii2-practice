@@ -62,10 +62,8 @@ desired effect
         <!-- Logo -->
         <!--Сделаем из лого Ссылку на домашнюю страрницу. target="_blank" - открытие в новом окне. -->
         <a href="<?= Yii::$app->homeUrl ?>" class="logo" target="_blank">
-            <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>A</b>LT</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Admin</b>LTE</span>
+            <span class="logo-lg"><b>Grocery</b>Store</span>
         </a>
 
         <!-- Header Navbar -->

@@ -44,20 +44,20 @@
             по ссылке https://adminlte.io/themes/AdminLTE/pages/UI/icons.html-->
             <li class="active"><a href="<?= \yii\helpers\Url::to(['main/index']) ?>">
                     <i class="fa fa-amazon"></i> <span>Статистика магазина</span></a></li>
-            <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
             <li class="treeview">
-                <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+                <a href="#"><i class="fa fa-shopping-cart"></i> <span>Заказы</span>
                     <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#">Link in level 2</a></li>
-                    <li><a href="#">Link in level 2</a></li>
+                    <li><a href="<?= \yii\helpers\Url::to(['order/index']) ?>">
+                            Список заказов</a></li>
+                    <li><a href="<?= \yii\helpers\Url::to(['order/create']) ?>">
+                            Добавить заказ</a></li>
                 </ul>
             </li>
         </ul>
         <!-- /.sidebar-menu -->
     </section>
-    <!-- /.sidebar -->
 </aside>
