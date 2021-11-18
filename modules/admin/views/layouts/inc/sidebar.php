@@ -35,7 +35,7 @@
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">HEADER</li>
+            <li class="header">SIDEBAR</li>
             <!-- Optionally, you can add icons to the links -->
             <!--делаем ссылку на главную страницу контроллера MainController экшен actionIndex
 
@@ -55,6 +55,20 @@
                             Список заказов</a></li>
                     <li><a href="<?= \yii\helpers\Url::to(['order/create']) ?>">
                             Добавить заказ</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#"><i class="fa fa-cubes"></i> <span>Категории</span>
+                    <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?= \yii\helpers\Url::to(['category/index']) ?>">
+                            Список категорий</a></li>
+                    <li><a href="<?= \yii\helpers\Url::to(['category/create']) ?>">
+                            Добавить категорию</a></li>
                 </ul>
             </li>
         </ul>

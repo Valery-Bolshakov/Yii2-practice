@@ -33,6 +33,22 @@ https://adminlte.io/themes/AdminLTE/pages/widgets.html
     </div>
 
     <div class="col-lg-3 col-xs-6">
+        <div class="small-box bg-yellow">
+            <div class="inner">
+                <!--Колличество категорий товаров-->
+                <h3><?= $categories ?></h3>
+                <p>Категорий товаров</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-cubes"></i>
+            </div>
+            <a href="<?= \yii\helpers\Url::to(['category/index']) ?>" class="small-box-footer">
+                More info <i class="fa fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-xs-6">
         <div class="small-box bg-green">
             <div class="inner">
                 <!--Колличество Товаров:-->
@@ -50,19 +66,4 @@ https://adminlte.io/themes/AdminLTE/pages/widgets.html
         </div>
     </div>
 
-    <div class="col-lg-3 col-xs-6">
-        <div class="small-box bg-yellow">
-            <div class="inner">
-                <!--Колличество категорий товаров-->
-                <h3><?= $categories ?></h3>
-                <p>Категорий товаров</p>
-            </div>
-            <div class="icon">
-                <i class="fa fa-cubes"></i>
-            </div>
-            <a href="<?= \yii\helpers\Url::to(['category/index']) ?>" class="small-box-footer">
-                More info <i class="fa fa-arrow-circle-right"></i>
-            </a>
-        </div>
-    </div>
 </div>

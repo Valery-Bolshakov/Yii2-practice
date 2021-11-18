@@ -1,5 +1,6 @@
 <?php
-/*СТРАНИЦА ВИДА  Список заказов*/
+/*СТРАНИЦА ВИДА  Список заказов
+http://yii2-practice/admin/order/index*/
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -53,6 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //                            'status',
                             [
                                 'attribute' => 'status',
+                                /*испльзуем коллбек функцию*/
                                 'value' => function ($data) {
                                 /*Возвращаем статус и условие "Если статус вернет 1(true) "?" то вернем одно
                                 значение, В противном случае ":" возвращаем другое значение":*/

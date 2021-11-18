@@ -35,7 +35,7 @@ class Order extends ActiveRecord
     /** Связываем 2 модели, Order и OrderProduct: */
     public function getOrderProduct()
     {
-        /*Так как в модели много продуктов воспользуемся методом hasMany()
+        /* У одного заказа может быть много продуктов - воспользуемся методом hasMany()
         связываем колонку order_id модели OrderProduct с колонкой id модели Order */
         return $this->hasMany(OrderProduct::class, ['order_id' => 'id']);
     }

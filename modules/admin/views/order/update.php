@@ -12,11 +12,11 @@ $this->params['breadcrumbs'][] = ['label' => 'Список заказов', 'url
 $this->params['breadcrumbs'][] = ['label' => "Заказ № {$model->id}", 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Редактирование';
 ?>
-
+<!--скопируем разметку из order/index-->
 <div class="row">
     <div class="col-md-12">
         <div class="box">
-            <div class="box-body">
+            <div class="box-body"> <!--добавляем отступы в табличке-->
                 <div class="order-update">
                     <?= $this->render('_form', [
                         'model' => $model,
@@ -26,5 +26,6 @@ $this->params['breadcrumbs'][] = 'Редактирование';
         </div>
     </div>
 </div>
+<!--далее откроем форму и внесем в нее некоторые правки-->
 
 

@@ -1,5 +1,6 @@
 <?php
-/*СТРАНИЦА ВИДА: ПРОСМОТР ДЕТАЛЕЙ ЗАКАЗА*/
+/*СТРАНИЦА ВИДА: ПРОСМОТР ДЕТАЛЕЙ ЗАКАЗА
+http://yii2-practice/admin/order/view?id=9*/
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -22,7 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="box">
             <div class="box-header with-border">
                 <!--a("название кнопки", ["экшен"], ['class'])-->
-                <?= Html::a('Редактирование заказа', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Редактирование заказа', ['update', 'id' => $model->id],
+                    ['class' => 'btn btn-primary']) ?>
                 &nbsp;
                 <?= Html::a('Удалить заказ', ['delete', 'id' => $model->id], [
                     'class' => 'btn btn-danger',
@@ -59,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'format' => 'raw',
                             ],
                             'name',
-                            'email',
+                            'email',  // 'email:email',
                             'phone',
                             'address',
                             'note:ntext',  // :ntext форматтор для сохранения переноса строк
@@ -70,8 +72,10 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+
 <!--Далее выводим товары которые учавствуют в данном заказе.
 Разметку таблицы берем с сайта adminlte 2
+
 Товары выводим циклом используя связь моделей.
 $model->orderProduct Данное действие задействует метод getOrderProduct таким образом мы получим все товары-->
 <?php $items = $model->orderProduct ?>

@@ -58,7 +58,7 @@ class OrderController extends AppAdminController
     {
         $dataProvider = new ActiveDataProvider([
             /*получаем данные из модели Order и передаем их в вид
-            так же можно здесь же настроить пагинацию, обращаемся к свойству pagination и 'pageSize' => 3*/
+            так же можно здесь же настроить ПАГИНАЦИЮ, обращаемся к свойству pagination и 'pageSize' => 3*/
             'query' => Order::find(),
             'pagination' => [
                 'pageSize' => 5,  // выставляем по 3 записи на 1 страницу
@@ -141,15 +141,16 @@ class OrderController extends AppAdminController
     orders и из таблицы order_product*/
     public function actionDelete($id)
     {
-        /*Так как модели Order и Order_Product связаны - то сначала надо удалить связь,
+        /*Так как модели Order и Order_Product связаны - то сначала надо УДАЛИТЬ связь,
         а затем удалить сам обьект
 
         unlinkAll('название связи')*/
-//        $this->findModel()->unlinkAll('orderProduct', true);  // первый вариант удаления
+//        $this->findModel()->unlinkAll('orderProduct', true);  // ПЕРВЫЙ вариант удаления
 
         $this->findModel($id)->delete();
 
-        OrderProduct::deleteAll(['order_id' => $id]);  // второй вариант удаления
+        OrderProduct::deleteAll(['order_id' => $id]);  // ВТОРОЙ вариант удаления
+        /*можно настроить сетфлешку после удаления*/
 
         return $this->redirect(['index']);
     }

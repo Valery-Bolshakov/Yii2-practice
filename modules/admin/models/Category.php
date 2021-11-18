@@ -23,6 +23,14 @@ class Category extends \yii\db\ActiveRecord
         return 'category';
     }
 
+    public function getCategory()
+    {
+        /*Устанавливаем связь в модели Category между 'id' и 'parent_id', что бы на
+        странице категорий товаров в колонке "Родительская категория" указывались не
+        номера категорий а их названия, либо самостоятельная категория*/
+        return $this->hasOne(Category::class, ['id' => 'parent_id']);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -42,10 +50,10 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'parent_id' => 'Parent ID',
-            'title' => 'Title',
-            'description' => 'Description',
-            'keywords' => 'Keywords',
+            'parent_id' => 'Родительская категория',
+            'title' => 'Наименование',
+            'description' => 'Описание',
+            'keywords' => 'Ключевые слова',
         ];
     }
 }

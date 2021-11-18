@@ -14,9 +14,9 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'fieldConfig' => [
             'template' => "
-                    <div class='col-md-6'>
+                    <div class='col-md-6'> <!--Устанавливаем ширину каждого поля в 6 колонок-->
                         <p>{label}</p> \n {input} \n
-                        <div>{error}</div>
+                        <div>{error}</div> <!--вывод ошибок валидации-->
                     </div>
                     ",
         ]
