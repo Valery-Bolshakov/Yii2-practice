@@ -17,7 +17,7 @@
             <!--Проходим циклом по свойствам товара и выводим их значения в виде таблицы:-->
             <?php foreach ($session['cart'] as $id => $item): ?>
                 <tr>
-                    <td><?= \yii\helpers\Html::img("@web/products/{$item['img']}",
+                    <td><?= \yii\helpers\Html::img("@web/{$item['img']}",
                             ['alt' => $item['title'], 'height' => 50]) ?></td>
                     <td><?= $item['title'] ?></td>
                     <td><?= $item['qty'] ?></td>

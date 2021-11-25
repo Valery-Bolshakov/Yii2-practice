@@ -36,7 +36,7 @@
         <div class="agileinfo_single">
             <h5><?= $product->title ?></h5><!--Подставляем запрашиваемое название товара-->
             <div class="col-md-4 agileinfo_single_left"><!--Подставляем запрашиваемое Картинку товара-->
-                <?= yii\helpers\Html::img("@web/products/{$product->img}",
+                <?= yii\helpers\Html::img("@web/{$product->img}",
                     ['alt' => $product->title, 'id' => 'example']) ?>
             </div>
             <div class="col-md-8 agileinfo_single_right">

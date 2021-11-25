@@ -114,7 +114,7 @@
 Далее меняем картинку товара, указываем путь на папку product в корневой дирректории web (@web/products/).
 А название картинки берем из свойства $offer по ключу img из таблицы product -->
                                         <a href="<?= yii\helpers\Url::to(['product/view', 'id' =>$offer->id]) ?>">
-                                            <?= yii\helpers\Html::img("@web/products/{$offer->img}",
+                                            <?= yii\helpers\Html::img("@web/{$offer->img}",
                                                 ['alt' => $offer->title]) ?>
                                         </a>
 <!-- Название в картинки берем из свойства $offer->title которое обратится к нужному разделу $offer поля title -->

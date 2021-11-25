@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'attribute' => 'img',
                                 /*в значении надо указать путь к папке с картинками
                                 в нашем случае путь к web/product иначе будет показывать no-img*/
-                                'value' => $model->img ? "/products/{$model->img}" : "/products/no-image.png",
+                                'value' => "/{$model->img}",
                                 /*добавляем специальный форматор для вывода изображений и задаем его ширину(px)*/
                                 'format' => ['image', ['width' => '100']],
                             ],

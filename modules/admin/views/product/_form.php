@@ -80,9 +80,14 @@ mihaildev\elfinder\Assets::noConflict($this);
     <?php
     /*Реализуем загрузку картинок с помощью виджета kartik-v/yii2-widget-fileinput*/
     // Usage with ActiveForm and model
-    /*в атрибуте пишем file и дописываем это свойство в модели Product*/
+    /*в атрибуте пишем file и дописываем это свойство в модели Product 'public $file;'*/
+    /*Добавим некоторые опции для более красивого вида данного расширения ('pluginOptions')*/
     echo $form->field($model, 'file')->widget(FileInput::class, [
         'options' => ['accept' => 'image/*'],
+        'pluginOptions' => [
+            'showCaption' => false,
+            'showUpload' => false,
+        ],
     ]);
     ?>
 

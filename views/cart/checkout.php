@@ -55,7 +55,7 @@
                                     <!--вставляем адекватную ссылку на картинку-->
                                     <td class="invert-image">
                                         <a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $id]) ?>">
-                                            <?= \yii\helpers\Html::img("@web/products/{$item['img']}",
+                                            <?= \yii\helpers\Html::img("@web/{$item['img']}",
                                                 ['alt' => $item['title']]) ?>
                                         </a>
                                     </td>
