@@ -48,6 +48,7 @@ class Category extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
+        /*Переименовали заголовки таблицы с категориями товаров*/
         return [
             'id' => 'ID',
             'parent_id' => 'Родительская категория',

@@ -19,6 +19,9 @@ class MenuWidget extends Widget  // Расширяем как правило yii
     public $data;  // будем получать массив категорий
     public $tree;  // будем формировать дерево виджета
     public $menuHtml;  // здесь будет готовая верстка меню, которая будет возвращать метод run
+    public $model;  // свойство будет нужно для сравнения категорий товаров
+    public $cache_time = 5;  // нужно для того что бы указать виджету нужно ли кешировать меню
+
 
     public function init()
     {
@@ -53,14 +56,21 @@ class MenuWidget extends Widget  // Расширяем как правило yii
         Это достигается посредством использования методов get() и set()
         */
 
+
         /*get cache
         в переменной $menu получим данные из кеша. Для этого обращаемся к контейнеру Yii::app к компоненту
         cache и методом get попробуем получить данные(Данные будем хранить по ключю menu)
         */
-        $menu = \Yii::$app->cache->get('menu');
+
+        /*когда берем данные из кеша то проверяем свойство cache_time
+        Если кеш-тайм вернет тру - то берем меню из кеша, если вернет 0 то получаем меню из базы(код после ифа)
+        То же самое сделаем и для записи в кеш*/
+        if ($this->cache_time) {
+            $menu = \Yii::$app->cache->get('menu');
 //            Если данные получены в меню - то ваозвращаем эти данные
-        if ($menu) {
-            return $menu;
+            if ($menu) {
+                return $menu;
+            }
         }
 
         /*Если данные HE получены в меню из кеша - то выполняем все операции ниже и записываем данные в кеш:
@@ -89,11 +99,15 @@ class MenuWidget extends Widget  // Расширяем как правило yii
 //        закрываем тег ul дописывая его в общую строку
         $this->menuHtml .= '</ul>';
 
-        /*set cache
-        По окончанию этих операций нам надо закешировать данные*/
-        \Yii::$app->cache->set('menu', $this->menuHtml, 5); // кешируем данные на  5 сек
+
+        /*set cache*/
+
+        if ($this->cache_time) {
+            /*По окончанию этих операций нам надо закешировать данные*/
+            \Yii::$app->cache->set('menu', $this->menuHtml, $this->cache_time); // кешируем данные на  5 сек
 //        В реальности данные кешируются в зависимости от того как часто меняется структура меню категорий
 //        кеш хранится в папке runtime/cache
+        }
 
 //        Проверим приходит ли новый массив категорий $tree = []
 //        debug($this->tree);
@@ -121,18 +135,20 @@ class MenuWidget extends Widget  // Расширяем как правило yii
         return $tree;
     }
 
-    protected function getMenuHtml($tree)
+    protected function getMenuHtml($tree, $tab = '')
     {
         /*Метод getMenuHtml() проходится циклом по категориям массива дерева $tree и применяет
         метод catToTemplate() для каждой категории $category. И записывает её в строку $str.*/
+
+        /*$tab = '' параметр вводим для дальнейшего подставления отступов в категориях*/
         $str = '';
         foreach ($tree as $category) {
-            $str .= $this->catToTemplate($category);
+            $str .= $this->catToTemplate($category, $tab);
         }
         return $str;  // Возвращаем строку с уже сформированным html кодом виджета меню
     }
 
-    protected function catToTemplate($category)
+    protected function catToTemplate($category, $tab)
     {
         /*Данный метод применяет шаблон верстки из подключаемого файла menu.php для каждого
         переданого ему обьекта $category. Данные записываем в буфер ob_start()*/

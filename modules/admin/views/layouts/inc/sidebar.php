@@ -44,6 +44,7 @@
             по ссылке https://adminlte.io/themes/AdminLTE/pages/UI/icons.html-->
             <li class="active"><a href="<?= \yii\helpers\Url::to(['main/index']) ?>">
                     <i class="fa fa-amazon"></i> <span>Статистика магазина</span></a></li>
+
             <li class="treeview">
                 <a href="#"><i class="fa fa-shopping-cart"></i> <span>Заказы</span>
                     <span class="pull-right-container">
@@ -71,7 +72,20 @@
                             Добавить категорию</a></li>
                 </ul>
             </li>
+
+            <li class="treeview">
+                <a href="#"><i class="fa fa-cutlery"></i> <span>Товары</span>
+                    <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?= \yii\helpers\Url::to(['product/index']) ?>">
+                            Список товаров</a></li>
+                    <li><a href="<?= \yii\helpers\Url::to(['product/create']) ?>">
+                            Добавить товар</a></li>
+                </ul>
+            </li>
         </ul>
-        <!-- /.sidebar-menu -->
     </section>
 </aside>

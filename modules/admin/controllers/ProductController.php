@@ -2,18 +2,17 @@
 
 namespace app\modules\admin\controllers;
 
-use app\modules\admin\models\Product;
 use Yii;
-use app\modules\admin\models\Category;
-use app\modules\admin\models\CategorySearch;
+use app\modules\admin\models\Product;
+use app\modules\admin\models\ProductSearch;
 use app\modules\admin\controllers\AppAdminController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CategoryController implements the CRUD actions for Category model.
+ * ProductController implements the CRUD actions for Product model.
  */
-class CategoryController extends AppAdminController
+class ProductController extends AppAdminController
 {
     /**
      * {@inheritdoc}
@@ -31,12 +30,13 @@ class CategoryController extends AppAdminController
     }
 
     /**
-     * Lists all Category models.
+     * Lists all Product models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CategorySearch();
+        $searchModel = new ProductSearch();
+
         /*тыкаем через контр на метод search и в нем добавляем жадную закгузку*/
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -47,7 +47,7 @@ class CategoryController extends AppAdminController
     }
 
     /**
-     * Displays a single Category model.
+     * Displays a single Product model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -60,13 +60,13 @@ class CategoryController extends AppAdminController
     }
 
     /**
-     * Creates a new Category model.
+     * Creates a new Product model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Category();
+        $model = new Product();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -78,7 +78,7 @@ class CategoryController extends AppAdminController
     }
 
     /**
-     * Updates an existing Category model.
+     * Updates an existing Product model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,7 +98,7 @@ class CategoryController extends AppAdminController
     }
 
     /**
-     * Deletes an existing Category model.
+     * Deletes an existing Product model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -106,32 +106,21 @@ class CategoryController extends AppAdminController
      */
     public function actionDelete($id)
     {
-        /*Отредактируем данный экшен так что бы перед удалением он смотрел есть ли в данном
-        обьекте вложенные элементы(категории и продукты) И если есть то просто редиректим с выводом флешки*/
-        $cats = Category::find()->where(['parent_id' => $id])->count();
-        $products = Product::find()->where(['category_id' => $id])->count();
-        if ($cats || $products) {
-            Yii::$app->session->setFlash('error', 'Удаление невозможно: в данной категории находятся
-            вложенные категории или товары');
-        } else {
-            /*Если в категории ничего не находится то удаляем её*/
-            $this->findModel($id)->delete();
-            Yii::$app->session->setFlash('success', 'Удаление успешно');
-        }
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Category model based on its primary key value.
+     * Finds the Product model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Category the loaded model
+     * @return Product the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Category::findOne($id)) !== null) {
+        if (($model = Product::findOne($id)) !== null) {
             return $model;
         }
 

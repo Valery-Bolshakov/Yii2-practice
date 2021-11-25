@@ -20,12 +20,22 @@ use Yii;
  */
 class Product extends \yii\db\ActiveRecord
 {
+    public $file; // дописываем для этого свойства правила валидации
+
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
         return 'product';
+    }
+
+    /*Добавим связь с моделью категорий*/
+    public function getCategory()
+    {
+        /*используем метод hasOne так как один товар может принадлежать одной категории*/
+        return $this->hasOne(Category::class, ['id' => 'category_id']);
+        /*Далее открываем генератор кода gii и реализуем операцию CRUD*/
     }
 
     /**
@@ -39,6 +49,7 @@ class Product extends \yii\db\ActiveRecord
             [['content'], 'string'],
             [['price', 'old_price'], 'number'],
             [['title', 'description', 'keywords', 'img'], 'string', 'max' => 255],
+//            [['file'], 'image'],
         ];
     }
 
@@ -49,14 +60,15 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'category_id' => 'Category ID',
-            'title' => 'Title',
-            'content' => 'Content',
-            'price' => 'Price',
+            'category_id' => 'ID категории',
+            'title' => 'Наименование',
+            'content' => 'Описание товара',
+            'price' => 'Стоимость',
             'old_price' => 'Old Price',
-            'description' => 'Description',
-            'keywords' => 'Keywords',
+            'description' => 'Описание',
+            'keywords' => 'Ключевые слова',
             'img' => 'Img',
+            'file' => 'Фото',
             'is_offer' => 'Is Offer',
         ];
     }
